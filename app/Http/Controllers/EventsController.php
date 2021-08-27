@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -97,7 +99,13 @@ class EventsController extends BaseController
      */
 
     public function getEventsWithWorkshops() {
-        throw new \Exception('implement in coding task 1');
+        $event = DB::table('events')->get();
+        $workshop = DB::table('workshops')->get();
+        $resposnejson = [];
+        foreach($event as $key => $val){
+            array_push($resposnejson, array($val, array('workshops'=>$workshop[$key])));
+        }
+        return $resposnejson;
     }
 
 
@@ -176,6 +184,8 @@ class EventsController extends BaseController
      */
 
     public function getFutureEventsWithWorkshops() {
-        throw new \Exception('implement in coding task 2');
+        $user = DB::table('events')->where('id', '1')->get();
+
+        return $user;
     }
 }
