@@ -103,9 +103,9 @@ class EventsController extends BaseController
         $workshop = DB::table('workshops')->get();
         $resposnejson = [];
         foreach($event as $key => $val){
-            array_push($resposnejson, array($val, array('workshops'=>$workshop[$key])));
+            array_push($resposnejson, array($val, 'workshops'=>$workshop[$key]));
         }
-        return $resposnejson;
+        return response($resposnejson, 200);
     }
 
 
@@ -186,6 +186,6 @@ class EventsController extends BaseController
     public function getFutureEventsWithWorkshops() {
         $user = DB::table('events')->where('id', '1')->get();
 
-        return $user;
+        return response($user, 200);
     }
 }
