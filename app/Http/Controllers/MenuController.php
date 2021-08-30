@@ -4,6 +4,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\MenuItem;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Routing\Controller as BaseController;
 
 class MenuController extends BaseController
@@ -93,8 +95,8 @@ class MenuController extends BaseController
         }
     ]
      */
-
     public function getMenuItems() {
-        throw new \Exception('implement in coding task 3');
+
+        return MenuItem::with('children')->orderBy('parent_id', 'asc')->get();
     }
 }

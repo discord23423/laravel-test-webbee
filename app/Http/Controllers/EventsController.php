@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Workshop;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -10,6 +11,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class EventsController extends BaseController
 {
@@ -99,13 +101,7 @@ class EventsController extends BaseController
      */
 
     public function getEventsWithWorkshops() {
-        $event = DB::table('events')->get();
-        $workshop = DB::table('workshops')->get();
-        $resposnejson = [];
-        foreach($event as $key => $val){
-            array_push($resposnejson, array($val, 'workshops'=>$workshop[$key]));
-        }
-        return response($resposnejson, 200);
+        return Event::with('workshops')->get();
     }
 
 
@@ -188,4 +184,5 @@ class EventsController extends BaseController
 
         return response($user, 200);
     }
+
 }
